@@ -6,30 +6,60 @@
   <title>i-Smile Dental Clinic</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       margin: 0;
       padding: 0;
       line-height: 1.6;
       color: #333;
+      background: #f8fafc;
+    }
+    nav {
+      background: #264b96;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.75rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1.5rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ffd166;
     }
     header {
-      background: #3a86ff;
+      background: linear-gradient(90deg, #3a86ff 60%, #264b96 100%);
       color: white;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 3rem 1rem 2rem 1rem;
+      position: relative;
+    }
+    .hero {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 1rem 0;
     }
     header h1 {
       margin: 0;
-      font-size: 2rem;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
     }
     header p {
       margin-top: 0.5rem;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
     }
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: 2rem auto;
       padding: 0 1rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(58,134,255,0.07);
     }
     .services {
       display: grid;
@@ -38,45 +68,183 @@
       margin-bottom: 2rem;
     }
     .card {
-      border: 1px solid #ddd;
+      border: 1px solid #e0e7ef;
       padding: 1.5rem;
-      border-radius: 8px;
+      border-radius: 10px;
       text-align: center;
+      background: #f6faff;
+      box-shadow: 0 2px 8px rgba(58,134,255,0.04);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 6px 24px rgba(58,134,255,0.10);
+    }
+    .card h3 {
+      color: #3a86ff;
+      margin-bottom: 0.5rem;
+    }
+    .about, .contact, .testimonials {
+      margin-bottom: 2rem;
+    }
+    .about h2, .contact h2, .testimonials h2 {
+      color: #264b96;
+      margin-bottom: 0.5rem;
+    }
+    .testimonials {
+      background: #eaf4ff;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .testimonial {
+      margin-bottom: 1rem;
+      font-style: italic;
+      color: #333;
+    }
+    .testimonial span {
+      display: block;
+      margin-top: 0.5rem;
+      font-weight: bold;
+      color: #3a86ff;
+    }
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .contact-details, .contact-form {
+      flex: 1 1 300px;
+      min-width: 250px;
+    }
+    .contact-details p {
+      margin: 0.5rem 0;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid #cfd8e3;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .contact-form button {
+      background: #3a86ff;
+      color: #fff;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .contact-form button:hover {
+      background: #264b96;
     }
     footer {
-      background: #f1f1f1;
+      background: #264b96;
+      color: #fff;
       text-align: center;
       padding: 1rem;
       margin-top: 2rem;
+      border-radius: 0 0 12px 12px;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 0.5rem;
+      }
+      .contact-info {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </nav>
   <header>
-    <h1>i-Smile Dental Clinic</h1>
-    <p>Your trusted family dentist in town</p>
+    <div class="hero">
+      <h1>i-Smile Dental Clinic</h1>
+      <p>Your trusted family dentist in town</p>
+      <p style="margin-top:1.5rem;font-size:1.1rem;">
+        <strong>Brighten your smile, brighten your life!</strong>
+      </p>
+    </div>
   </header>
 
   <div class="container">
-    <h2>Our Services</h2>
-    <div class="services">
-      <div class="card">
-        <h3>General Dentistry</h3>
-        <p>Routine check-ups, fillings, and cleanings to keep your smile healthy.</p>
+    <section id="services">
+      <h2>Our Services</h2>
+      <div class="services">
+        <div class="card">
+          <h3>General Dentistry</h3>
+          <p>Routine check-ups, fillings, and cleanings to keep your smile healthy.</p>
+        </div>
+        <div class="card">
+          <h3>Cosmetic Dentistry</h3>
+          <p>Whitening, veneers, and more to give you the confidence of a brighter smile.</p>
+        </div>
+        <div class="card">
+          <h3>Orthodontics</h3>
+          <p>Braces and aligners tailored to your needs for straighter teeth.</p>
+        </div>
+        <div class="card">
+          <h3>Pediatric Dentistry</h3>
+          <p>Gentle care for children, making dental visits fun and stress-free.</p>
+        </div>
+        <div class="card">
+          <h3>Emergency Care</h3>
+          <p>Same-day appointments for urgent dental issues and pain relief.</p>
+        </div>
       </div>
-      <div class="card">
-        <h3>Cosmetic Dentistry</h3>
-        <p>Whitening, veneers, and more to give you the confidence of a brighter smile.</p>
-      </div>
-      <div class="card">
-        <h3>Orthodontics</h3>
-        <p>Braces and aligners tailored to your needs for straighter teeth.</p>
-      </div>
-    </div>
+    </section>
 
-    <h2>Book an Appointment</h2>
-    <p>Click below to talk to our AI assistant and schedule your visit:</p>
-    
+    <section class="about" id="about">
+      <h2>About Us</h2>
+      <p>
+        At i-Smile Dental Clinic, our experienced team is dedicated to providing compassionate, comprehensive dental care for the whole family. 
+        We use the latest technology and gentle techniques to ensure your comfort and satisfaction. Our mission is to help you achieve optimal oral health and a beautiful smile in a welcoming environment.
+      </p>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+      <h2>What Our Patients Say</h2>
+      <div class="testimonial">
+        "The staff is friendly and professional. My kids love coming here!" 
+        <span>- Sarah M.</span>
+      </div>
+      <div class="testimonial">
+        "I had a dental emergency and they took care of me right away. Highly recommended!" 
+        <span>- James T.</span>
+      </div>
+      <div class="testimonial">
+        "The clinic is clean and modern. I felt comfortable throughout my treatment." 
+        <span>- Priya S.</span>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>Contact Us</h2>
+      <div class="contact-info">
+        <div class="contact-details">
+          <p><strong>Address:</strong> 123 Smile Avenue, Happy Town</p>
+          <p><strong>Phone:</strong> (555) 123-4567</p>
+          <p><strong>Email:</strong> info@ismiledental.com</p>
+          <p><strong>Hours:</strong> Mon-Fri 9am - 6pm, Sat 9am - 2pm</p>
+        </div>
+        <form class="contact-form">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <textarea rows="4" placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
     <!-- ElevenLabs Agent Widget -->
     <elevenlabs-convai agent-id="agent_0601k33rtk4beteb0cd8pds3ww6s"></elevenlabs-convai>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
