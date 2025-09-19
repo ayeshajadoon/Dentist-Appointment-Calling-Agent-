@@ -1,0 +1,233 @@
+{
+  "name": "getAvailability",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "timezone": ""
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -832,
+        -64
+      ],
+      "id": "3465a100-15bf-4fa2-aca4-6a197e9ea8e5",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Current Date and Time:  \n{{ $json.currentDate }}  \n\nCalendar Availability Data:  \n\nRequested Date:  \n{{ $('Webhook1').item.json.body.message.toolCalls[0].function.arguments.date }}\n{{ $('Webhook1').item.json.body.date }}  \n\nRequested Time:  \n{{ $('Webhook1').item.json.body.message.toolCalls[0].function.arguments.time }}  \n{{ $('Webhook1').item.json.body.time }}  \n\nWorking Hours: 9:00 AM - 5:00 PM  \nBuffer Time: 15 minutes  \nDuration of Each Slot: 30 minutes  \n\nProcessing Steps:  \n1. Check if the requested time is available for the requested date.  \n2. If available, confirm the booking and inform the AI.  \n3. If unavailable due to a conflict:  \n   - Suggest up to 3 closest available slots while ensuring buffer time.  \n   - If no slots are available on that day, find the next available weekday and provide alternative slots.  \n\nOutput Requirements:  \n\n✅ If the requested time is available, confirm it.  \nExample:  \n\"The requested time of 2:00 PM on April 17, 2025, is available. Would you like to proceed with this booking?\"  \n\n✅ ONLY if unavailable, suggest up to 3 alternative slots.  \n\n✅ If no slots exist, suggest the next open weekday.  \n\nYour output should not sound robotic.  (example: We have availability on (insert date))\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -672,
+        -64
+      ],
+      "id": "39e491ec-fe63-4988-861c-d1061a549e15",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "131dbcfe-974a-4279-a1fb-4c9f1160ba74",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1040,
+        -64
+      ],
+      "id": "691858ef-d5fc-4890-a71e-b08291ca57bb",
+      "name": "Webhook1",
+      "webhookId": "131dbcfe-974a-4279-a1fb-4c9f1160ba74"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -672,
+        128
+      ],
+      "id": "7aea1c56-5c85-4d5a-a053-277e6241083e",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "iXITcCrv951t5qd4",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "ayesha.colabarmy@gmail.com",
+          "mode": "list",
+          "cachedResultName": "ayesha.colabarmy@gmail.com"
+        },
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('After', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Before', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -512,
+        128
+      ],
+      "id": "d227d212-c0a0-49f3-b31f-807e8a7188f3",
+      "name": "Google Calendar1",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "VI2WNTjuODlQeKWz",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -352,
+        -64
+      ],
+      "id": "d142de47-8024-427a-8f9a-d5baadaee0d6",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "ayesha.colabarmy@gmail.com",
+          "mode": "list",
+          "cachedResultName": "ayesha.colabarmy@gmail.com"
+        },
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Time', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End_Time', ``, 'string') }}",
+        "options": {
+          "timezone": {
+            "__rl": true,
+            "value": "America/Los_Angeles",
+            "mode": "list",
+            "cachedResultName": "America/Los_Angeles"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -336,
+        128
+      ],
+      "id": "e9fac0c4-70d2-4708-b42c-d52f4b3b3392",
+      "name": "Google Calendar2",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "VI2WNTjuODlQeKWz",
+          "name": "Google Calendar account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar2": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9eb0ee96-2c3a-4499-a614-83a245a25582",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "864e669af0dc400ca19e32c52826d5d1295486e34171c64b98fa53940212a22c"
+  },
+  "id": "k6xVCYUgNckxUiSv",
+  "tags": []
+}
